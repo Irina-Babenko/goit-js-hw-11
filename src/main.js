@@ -7,6 +7,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader'); // Получаем элемент лоудера
 let lightbox = new SimpleLightbox('.gallery a');
 
 form.addEventListener('submit', async event => {
@@ -17,6 +18,8 @@ form.addEventListener('submit', async event => {
     iziToast.error({ title: 'Error', message: 'Please enter a search term!' });
     return;
   }
+
+  loader.style.display = 'block';
 
   try {
     const data = await fetchImages(query);
@@ -36,5 +39,7 @@ form.addEventListener('submit', async event => {
       title: 'Error',
       message: 'Something went wrong. Please try again later.',
     });
+  } finally {
+    loader.style.display = 'none';
   }
 });
