@@ -7,7 +7,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
-const loader = document.querySelector('.loader'); // Получаем элемент лоудера
+const loader = document.querySelector('.loader');
 let lightbox = new SimpleLightbox('.gallery a');
 
 form.addEventListener('submit', async event => {
@@ -19,6 +19,7 @@ form.addEventListener('submit', async event => {
     return;
   }
 
+  gallery.innerHTML = '';
   loader.style.display = 'block';
 
   try {
@@ -29,7 +30,6 @@ form.addEventListener('submit', async event => {
         message:
           'Sorry, there are no images matching your search query. Please try again!',
       });
-      gallery.innerHTML = '';
       return;
     }
     renderGallery(data.hits);
