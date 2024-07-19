@@ -1,40 +1,47 @@
-export function renderImageCard({
-  webformatURL,
-  largeImageURL,
-  tags,
-  likes,
-  views,
-  comments,
-  downloads,
-}) {
-  return `
-    <div class="photo-card">
-      <a href="${largeImageURL}">
-        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-      </a>
-      <div class="info">
-        <p class="info-item">
-          <b>Likes</b>
-          ${likes}
-        </p>
-        <p class="info-item">
-          <b>Views</b>
-          ${views}
-        </p>
-        <p class="info-item">
-          <b>Comments</b>
-          ${comments}
-        </p>
-        <p class="info-item">
-          <b>Downloads</b>
-          ${downloads}
-        </p>
-      </div>
-    </div>
-  `;
-}
-
-export function renderGallery(images) {
-  const gallery = document.querySelector('.gallery');
-  gallery.innerHTML = images.map(renderImageCard).join('');
+export function renderPictures(hits) {
+  return hits
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
+    <li class="photo-card">
+        <a class="gallery-link" href="${largeImageURL}">
+          <img
+            class="gallery-image"
+            src="${webformatURL}" 
+            alt="${tags}" 
+            width="360"
+            height="152" 
+          />
+        </a>
+        <div class="photo-box">
+          <ul class="photo-list">
+            <li class="photo-item">
+              <h2 class="photo-title">Likes</h2>
+              <p class="photo-text">${likes}</p>
+            </li>
+            <li class="photo-item">
+              <h2 class="photo-title">Views</h2>
+              <p class="photo-text">${views}</p>
+            </li>
+            <li class="photo-item">
+              <h2 class="photo-title">Comments</h2>
+              <p class="photo-text">${comments}</p>
+            </li>
+            <li class="photo-item">
+              <h2 class="photo-title">Downloads</h2>
+              <p class="photo-text">${downloads}</p>
+            </li>
+          </ul>
+        </div>
+      </li>
+    `
+    )
+    .join('');
 }
